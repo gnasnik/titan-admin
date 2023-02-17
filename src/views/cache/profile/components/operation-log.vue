@@ -89,7 +89,7 @@
   const route = useRouter();
   const { loading, setLoading } = useLoading(true);
 
-  const renderData = ref<CarfileReplicaInfo>([]);
+  const renderData = ref<CarfileReplicaInfo[]>();
   const fetchData = async () => {
     try {
       const params: CacheInfoParams = { carfile_cid: props.cid }

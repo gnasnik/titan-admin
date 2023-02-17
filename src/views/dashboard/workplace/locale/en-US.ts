@@ -35,4 +35,10 @@ export default {
   'workplace.popularContent.video': 'video',
   'workplace.categoriesPercent': 'Categories Percent',
   'workplace.pecs': 'pecs',
+  'workplace.times': 'times',
+  'workplace.nodeDailyTrend': 'Trend',
+  'workplace.totalNodes': 'Total Nodes',
+  'workplace.totalCaches': 'Total Caches',
+  'workplace.totalRetrivals': 'Total Retrievals',
+  'workplace.totalStorage': 'Total Storage',
 };

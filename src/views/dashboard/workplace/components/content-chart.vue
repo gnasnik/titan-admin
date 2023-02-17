@@ -6,7 +6,7 @@
       :body-style="{
         paddingTop: '20px',
       }"
-      :title="$t('workplace.contentData')"
+      :title="$t('workplace.nodeDailyTrend')"
     >
       <template #extra>
         <a-link>{{ $t('workplace.viewMore') }}</a-link>
@@ -20,7 +20,7 @@
   import { ref } from 'vue';
   import { graphic } from 'echarts';
   import useLoading from '@/hooks/loading';
-  import { queryContentData, ContentDataRecord } from '@/api/dashboard';
+  import { queryNodeDailyTrendData, NodeDailyRes } from '@/api/dashboard';
   import useChartOption from '@/hooks/chart-option';
   import { ToolTipFormatterParams } from '@/types/echarts';
   import { AnyObject } from '@/types/global';
@@ -98,8 +98,19 @@
         },
         axisLabel: {
           formatter(value: any, idx: number) {
-            if (idx === 0) return value;
-            return `${value}k`;
+            if (idx === 0) {
+              return value;
+            }
+            if (value > 0 && value < 1000) {
+              return `${value}`;
+            } 
+            if (value >= 1000 && value < 1000000) {
+              return `${value / 1000}k`;
+            }
+            if (value >= 1000000 && value < 1000000000) {
+              return `${value / 1000000}M`;
+            } 
+            return `${value / 1000000000}B`;
           },
         },
         splitLine: {
@@ -116,8 +127,8 @@
           const [firstElement] = params as ToolTipFormatterParams[];
           return `<div>
             <p class="tooltip-title">${firstElement.axisValueLabel}</p>
-            <div class="content-panel"><span>总内容量</span><span class="tooltip-value">${(
-              Number(firstElement.value) * 10000
+            <div class="content-panel"><span>总检索次数</span><span class="tooltip-value">${(
+              Number(firstElement.value)
             ).toLocaleString()}</span></div>
           </div>`;
         },
@@ -177,10 +188,10 @@
   const fetchData = async () => {
     setLoading(true);
     try {
-      const { data: chartData } = await queryContentData();
-      chartData.forEach((el: ContentDataRecord, idx: number) => {
+      const { data: chartData } = await queryNodeDailyTrendData({current: 1, pageSize: 15});
+      chartData.forEach((el: NodeDailyRes, idx: number) => {
         xAxis.value.push(el.x);
-        chartsData.value.push(el.y);
+        chartsData.value.push(el.y.retrieval_count);
         if (idx === 0) {
           graphicElements.value[0].style.text = el.x;
         }

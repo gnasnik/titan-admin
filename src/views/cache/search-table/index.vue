@@ -17,12 +17,12 @@
                   :label="$t('searchTable.form.carfile_cid')"
                 >
                   <a-input
-                    v-model="formModel.number"
+                    v-model="formModel.carfile_cid"
                     :placeholder="$t('searchTable.form.carfile_cid.placeholder')"
                   />
                 </a-form-item>
               </a-col>
-              <!-- <a-col :span="8">
+              <a-col :span="8">
                 <a-form-item
                   field="createdTime"
                   :label="$t('searchTable.form.createdTime')"
@@ -33,7 +33,7 @@
                   />
                 </a-form-item>
               </a-col> -->
-              <!-- <a-col :span="8">
+              <a-col :span="8">
                 <a-form-item
                   field="status"
                   :label="$t('searchTable.form.status')"
@@ -44,7 +44,7 @@
                     :placeholder="$t('searchTable.form.selectDefault')"
                   />
                 </a-form-item>
-              </a-col> -->
+              </a-col>
             </a-row>
           </a-form>
         </a-col>
@@ -76,7 +76,7 @@
                     <a-input v-model="createFormModel.carfile_cid" />
                 </a-form-item>
                 <a-form-item field="reliability" :label="$t('searchTable.columns.needReliability')">
-                    <a-input v-model.number="createFormModel.reliability" type="number"/>
+                    <a-input v-model.number="createFormModel.reliability"/>
                 </a-form-item>
                 <a-form-item field="expired_time" :label="$t('searchTable.columns.expiredTime')">
                     <a-date-picker v-model="createFormModel.expired_time" style="width: 200px;" />
@@ -175,7 +175,7 @@
           <a-button type="text" size="small" @click="handleClickView(record)">
             {{ $t('searchTable.columns.operations.view') }}
           </a-button>
-            <a-button type="text" size="small" @click="handleDeleteCache(record)">
+            <a-button type="text" size="small" @click="handleDeleteCache()">
             {{ $t('searchTable.columns.operations.delete') }}
           </a-button>
                <a-modal v-model:visible="deleteVisible" :title="$t('searchTable.operation.detele.title')" @ok="handleDeleteOK(record.CarfileCid)" @cancel="handleDeleteCancel">
@@ -207,18 +207,19 @@
   const generateFormModel = () => {
     return {
       carfile_cid: '',
-    //   createdTime: [],
-    //   status: 0,
+      createdTime: [],
+      status: 0,
     };
   };
 
-  const generateCreateFormModel = () :CreateCacheParams => {
+  const generateCreateFormModel = () => {
     return {
       carfile_cid: '',
-      reliability: 0,
+      reliability: '',
       expired_time: ''
     }
   }
+
 
   const router = useRouter();
   const { loading, setLoading } = useLoading(true);

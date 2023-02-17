@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <div class="left-side">
-      <a-space @click="this.$router.push({path: 'search-table' })">
+      <a-space>
         <img
           alt="logo"
           src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"

@@ -12,15 +12,15 @@
           />
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.onlineContent')"
-          :value="373.5"
-          :precision="1"
+          :title="$t('workplace.totalNodes')"
+          :value="panelData.total_node_count"
+          :precision="0"
           :value-from="0"
           animation
           show-group-separator
         >
           <template #suffix>
-            W+ <span class="unit">{{ $t('workplace.pecs') }}</span>
+            <span class="unit">{{ $t('workplace.pecs') }}</span>
           </template>
         </a-statistic>
       </a-space>
@@ -37,8 +37,8 @@
           />
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.putIn')"
-          :value="368"
+          :title="$t('workplace.totalCaches')"
+          :value="panelData.total_carfile"
           :value-from="0"
           animation
           show-group-separator
@@ -61,14 +61,14 @@
           />
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.newDay')"
-          :value="8874"
+          :title="$t('workplace.totalRetrivals')"
+          :value="panelData.validator_count"
           :value-from="0"
           animation
           show-group-separator
         >
           <template #suffix>
-            <span class="unit">{{ $t('workplace.pecs') }}</span>
+            <span class="unit">{{ $t('workplace.times') }}</span>
           </template>
         </a-statistic>
       </a-space>
@@ -86,13 +86,16 @@
           />
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.newFromYesterday')"
-          :value="2.8"
+          :title="$t('workplace.totalStorage')"
+          :value="panelData.total_storage"
           :precision="1"
           :value-from="0"
           animation
         >
-          <template #suffix> % <icon-caret-up class="up-icon" /> </template>
+          <!-- <template #suffix> % <icon-caret-up class="up-icon" /> </template> -->
+          <template #suffix>
+            <span class="unit">TiB</span>
+          </template>
         </a-statistic>
       </a-space>
     </a-grid-item>
@@ -102,7 +105,38 @@
   </a-grid>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useRoute } from 'vue-router';
+import useLoading from '@/hooks/loading';
+import { ref } from 'vue';
+import { queryNodeDailyTrendData } from '@/api/dashboard';
+
+  const route = useRoute();
+  const generatePanelData = () => {
+      return {
+        total_node_count: 0,
+        total_carfile: 0,
+        retrieval_count:0,
+        total_storage:0,
+      }
+  }
+  const panelData = ref(generatePanelData());
+  const { loading, setLoading } = useLoading(true);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const { data } = await queryNodeDailyTrendData({current: 1, pageSize: 1});
+      panelData.value = data[0].y;
+    } catch (err) {
+      // you can report use errorHandler or other
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchData();
+
+</script>
 
 <style lang="less" scoped>
   .arco-grid.panel {

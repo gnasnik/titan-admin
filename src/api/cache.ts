@@ -33,7 +33,7 @@ export function queryCacheList(params: CacheParams) {
 }
 
 export interface CacheInfoParams {
-    carfile_cid: string | null;
+    carfile_cid: string | undefined;
 }
 
 export interface CarfileReplicaInfo{

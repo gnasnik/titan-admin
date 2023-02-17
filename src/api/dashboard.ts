@@ -1,22 +1,37 @@
 import axios from 'axios';
-import type { TableData } from '@arco-design/web-vue/es/table/interface';
+import qs from 'query-string';
 
-export interface ContentDataRecord {
+
+export interface NodeDailyRecord {
+  id: string;
+  total_node_count: number;
+  validator_count: number;
+  candidate_count: number;
+  edge_count: number;
+  total_storage: number;
+  total_upstream_bandwidth: number;
+  total_downstream_bandwidth: number;
+  total_carfile: number;
+  total_carfile_size: number;
+  retrieval_count: number;
+  time: string;
+}
+
+export interface NodeDailyParams extends Partial<NodeDailyRecord> {
+  current: number;
+  pageSize: number;
+}
+
+export interface NodeDailyRes {
   x: string;
-  y: number;
+  y: NodeDailyRecord;
 }
 
-export function queryContentData() {
-  return axios.get<ContentDataRecord[]>('/api/content-data');
-}
-
-export interface PopularRecord {
-  key: number;
-  clickNumber: string;
-  title: string;
-  increases: number;
-}
-
-export function queryPopularList(params: { type: string }) {
-  return axios.get<TableData[]>('/api/popular/list', { params });
+export function queryNodeDailyTrendData(params: NodeDailyParams) {
+  return axios.get<NodeDailyRes[]>('/api/v1/admin/get_node_daily_trend', {
+    params,
+    paramsSerializer: (obj) => {
+      return qs.stringify(obj);
+    },
+  });
 }

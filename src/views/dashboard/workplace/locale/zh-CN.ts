@@ -34,4 +34,10 @@ export default {
   'workplace.popularContent.video': '视频',
   'workplace.categoriesPercent': '内容类型占比',
   'workplace.pecs': '个',
+  'workplace.times': '次',
+  'workplace.nodeDailyTrend': '检索趋势',
+  'workplace.totalNodes': '总节点数',
+  'workplace.totalCaches': '总缓存数',
+  'workplace.totalRetrivals': '总检索数',
+  'workplace.totalStorage': '总存储空间',
 };
