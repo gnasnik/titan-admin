@@ -126,7 +126,7 @@ import { queryNodeDailyTrendData } from '@/api/dashboard';
   const fetchData = async () => {
     setLoading(true);
     try {
-      const { data } = await queryNodeDailyTrendData({current: 1, pageSize: 1});
+      const { data } = await queryNodeDailyTrendData({page: 1, page_size: 1});
       panelData.value = data[0].y;
     } catch (err) {
       // you can report use errorHandler or other

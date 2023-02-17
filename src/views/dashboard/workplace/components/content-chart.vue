@@ -188,7 +188,7 @@
   const fetchData = async () => {
     setLoading(true);
     try {
-      const { data: chartData } = await queryNodeDailyTrendData({current: 1, pageSize: 15});
+      const { data: chartData } = await queryNodeDailyTrendData({page: 1, page_size: 15});
       chartData.forEach((el: NodeDailyRes, idx: number) => {
         xAxis.value.push(el.x);
         chartsData.value.push(el.y.retrieval_count);

@@ -18,8 +18,8 @@ export interface NodeDailyRecord {
 }
 
 export interface NodeDailyParams extends Partial<NodeDailyRecord> {
-  current: number;
-  pageSize: number;
+  page: number;
+  page_size: number;
 }
 
 export interface NodeDailyRes {
