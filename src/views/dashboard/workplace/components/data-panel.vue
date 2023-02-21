@@ -62,7 +62,7 @@
         </a-avatar>
         <a-statistic
           :title="$t('workplace.totalRetrivals')"
-          :value="panelData.validator_count"
+          :value="panelData.retrieval_count"
           :value-from="0"
           animation
           show-group-separator

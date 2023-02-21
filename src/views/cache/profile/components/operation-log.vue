@@ -82,7 +82,7 @@
 
   const props = defineProps({
     cid: {
-      type: String,
+      type: String || null,
     },
   });
 

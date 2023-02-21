@@ -64,7 +64,7 @@ export interface CreateCacheParams {
 }
 
 export function createCache(params: CreateCacheParams) {
-    return axios.post<CreateCacheParams>('/api/v1/admin/add_cache', params );
+    return axios.post('/api/v1/admin/add_cache', params );
 }
 
 export function deleteCache(params: {carfile_cid: string}) {

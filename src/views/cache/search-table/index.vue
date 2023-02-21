@@ -32,8 +32,8 @@
                     style="width: 100%"
                   />
                 </a-form-item>
-              </a-col> -->
-              <a-col :span="8">
+              </a-col>
+              <!-- <a-col :span="8">
                 <a-form-item
                   field="status"
                   :label="$t('searchTable.form.status')"
@@ -44,11 +44,11 @@
                     :placeholder="$t('searchTable.form.selectDefault')"
                   />
                 </a-form-item>
-              </a-col>
+              </a-col> -->
             </a-row>
           </a-form>
         </a-col>
-        <a-divider style="height: 44px" direction="vertical" />
+        <!-- <a-divider style="height: 44px" direction="vertical" /> -->
         <a-col :flex="'46px'" style="text-align: right">
           <a-space direction="vertical" :size="18">
             <a-button type="primary" @click="search">
@@ -76,7 +76,7 @@
                     <a-input v-model="createFormModel.carfile_cid" />
                 </a-form-item>
                 <a-form-item field="reliability" :label="$t('searchTable.columns.needReliability')">
-                    <a-input v-model.number="createFormModel.reliability"/>
+                    <a-input-number v-model="createFormModel.reliability"/>
                 </a-form-item>
                 <a-form-item field="expired_time" :label="$t('searchTable.columns.expiredTime')">
                     <a-date-picker v-model="createFormModel.expired_time" style="width: 200px;" />
@@ -194,12 +194,14 @@
   import { computed, ref, reactive, watch, nextTick } from 'vue';
   import { useI18n } from 'vue-i18n';
   import useLoading from '@/hooks/loading';
+  import { Message } from '@arco-design/web-vue';
   import { queryCacheList, CacheRecord, createCache, CacheParams, CreateCacheParams, deleteCache } from '@/api/cache';
   import { Pagination } from '@/types/global';
   import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface';
   import type { TableColumnData } from '@arco-design/web-vue/es/table/interface';
   import cloneDeep from 'lodash/cloneDeep';
   import Sortable from 'sortablejs';
+import { xor } from 'lodash';
 
   type SizeProps = 'mini' | 'small' | 'medium' | 'large';
   type Column = TableColumnData & { checked?: true };
@@ -208,14 +210,14 @@
     return {
       carfile_cid: '',
       createdTime: [],
-      status: 0,
+      status: 'offline',
     };
   };
 
   const generateCreateFormModel = () => {
     return {
       carfile_cid: '',
-      reliability: '',
+      reliability: 0,
       expired_time: ''
     }
   }
@@ -415,12 +417,13 @@
   const handleDeleteOK = async(cid: string) => {
     try {
     const { data } = await deleteCache({'carfile_cid': cid});
+    Message.success(t('searchTable.operation.create.success'));
     } catch (err) {
     // you can report use errorHandler or other
     } finally {
     setLoading(false);
-    }
     fetchData();
+    }
   }
 
   const handleDeleteCancel = () => {
@@ -435,15 +438,16 @@ const handleCreate = () => {
 const handleSubmitCreate = async () => {
     visible.value = false;
     try {
-    const { data } = await createCache(createFormModel.value);
+      const params = { ...createFormModel.value } as CreateCacheParams;
+      const { data } = await createCache(params);
+    Message.success(t('searchTable.operation.create.success'));
     } catch (err) {
     // you can report use errorHandler or other
     } finally {
     setLoading(false);
-    }
-
     createFormModel.value = generateCreateFormModel();
     fetchData();
+    }
 };
    
 const handleCancel = () => {

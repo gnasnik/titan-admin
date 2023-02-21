@@ -46,6 +46,8 @@ export default {
   'searchTable.form.carfile_cid': 'CID',
   'searchTable.form.carfile_cid.placeholder': 'Please Input Carfile CID',
   'searchTable.operation.create.title':  'Add Cache',  
+  'searchTable.operation.create.success':  'Create Done',  
+
   'searchTable.columns.carfileCID': 'CID',
   'searchTable.columns.carfileHash': 'Hash',
   'searchTable.columns.curReliability': 'Currnet Reliability',
@@ -57,5 +59,6 @@ export default {
   'searchTable.columns.endTime': 'EndTime',
   'searchTable.columns.operations.delete': 'Delete',
   'searchTable.operation.detele.title': 'Delete Caches',
-  'searchTable.columns.operations.delete.confirm': 'Are you sure?'
+  'searchTable.columns.operations.delete.confirm': 'Are you sure?',
+  'searchTable.operation.delete.success':  'Delete Done',  
 };

@@ -2,7 +2,7 @@
   <div class="container">
     <Breadcrumb :items="['menu.cache', 'menu.cache.profile']" />
     <a-space direction="vertical" :size="16" fill>
-      <OperationLog :cid="route.query.cid"/>
+      <OperationLog :cid="route.query.cid as string"/>
     </a-space>
   </div>
 </template>

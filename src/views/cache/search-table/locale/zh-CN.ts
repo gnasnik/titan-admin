@@ -47,6 +47,7 @@ export default {
   'searchTable.form.carfile_cid': 'CID',
   'searchTable.form.carfile_cid.placeholder': '请输入 Carfile CID',
   'searchTable.operation.create.title':  '新建缓存',  
+  'searchTable.operation.create.success':  '创建成功',  
 
   'searchTable.columns.carfileCID': 'CID',
   'searchTable.columns.carfileHash': 'Hash',
@@ -59,5 +60,6 @@ export default {
   'searchTable.columns.endTime': '结束时间',
   'searchTable.columns.operations.delete': '删除',
   'searchTable.operation.detele.title': '删除缓存',
-  'searchTable.columns.operations.delete.confirm': '确定要删除吗？'
+  'searchTable.columns.operations.delete.confirm': '确定要删除吗？',
+  'searchTable.operation.delete.success':  '删除成功',  
 };
